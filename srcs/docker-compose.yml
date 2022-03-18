@@ -1,0 +1,84 @@
+services:
+  nginx:
+    depends_on:
+      - wordpress
+    # restart: always
+    image: nginx
+    container_name: nginx
+    init: true
+    build: requirements/nginx/.
+    ports:
+      - 443:443
+    networks:
+      - 42network
+    volumes:
+      - wp_volume:/var/www/html/
+  mariadb:
+    image: mariadb
+    # restart: always
+    container_name: mariadb
+    init: true
+    build:
+      context: requirements/mariadb/.
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASS=${DB_PASS}
+    networks:
+      - 42network
+    volumes:
+      - db_volume:/var/lib/mysql/
+  wordpress:
+    depends_on:
+      - mariadb
+    # restart: always
+    image: wordpress
+    container_name: wordpress
+    init: true
+    build:
+      context: requirements/wordpress/.
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASS=${DB_PASS}
+        - DB_HOST=${DB_HOST}
+    environment:
+      # - WP_AUTH_KEY=${WP_AUTH_KEY}
+      # - WP_SECURE_AUTH_KEY=${WP_SECURE_AUTH_KEY}
+      # - WP_LOGGED_IN_KEY=${WP_LOGGED_IN_KEY}
+      # - WP_NONCE_KEY=${WP_NONCE_KEY}
+      # - WP_AUTH_SALT=${WP_AUTH_SALT}
+      # - WP_SECURE_AUTH_SALT=${WP_SECURE_AUTH_SALT}
+      # - WP_LOGGED_IN_SALT=${WP_LOGGED_IN_SALT}
+      # - WP_NONCE_SALT=${WP_NONCE_SALT}
+      - WP_ADMIN=${WP_ADMIN}
+      - WP_APASS=${WP_APASS}
+      - WP_AMAIL=${WP_AMAIL}
+      - WP_USER=${WP_USER}
+      - WP_PASS=${WP_PASS}
+      - WP_MAIL=${WP_MAIL}
+      - WP_TITLE=${WP_TITLE}
+      - WP_URL=${WP_URL}
+    networks:
+      - 42network
+    volumes:
+      - wp_volume:/var/www/html/
+networks:
+  42network:
+    name: 42network
+    driver: bridge
+volumes:
+  db_volume:
+    name: db_volume
+    driver: local
+    driver_opts:
+      device: ${BUILD_PATH}db
+      o: bind       #bind adress -> localhost
+      type: none
+  wp_volume:
+    name: wp_volume
+    driver: local
+    driver_opts:
+      device: ${BUILD_PATH}wp
+      o: bind
+      type: none
