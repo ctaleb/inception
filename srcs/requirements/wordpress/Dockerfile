@@ -2,7 +2,6 @@ FROM debian:buster
 RUN apt-get update			\
 	&& apt-get upgrade -y
 RUN apt-get install -y	\
-	wget				\
 	curl				\
 	php-fpm				\
 	php-mysql			\
@@ -25,11 +24,11 @@ RUN apt-get install -y	\
 	# php-xml			\
 	# php-zip			\
 COPY /conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
-RUN service php7.3-fpm start							\
-	&& wget https://wordpress.org/latest.tar.gz			\
-	&& mkdir -p /var/www/html/							\
-	&& tar xvf latest.tar.gz --directory /var/www/html/	\
-	&& rm latest.tar.gz
+RUN service php7.3-fpm start											\
+	&& curl -O https://wordpress.org/wordpress-5.9.2.tar.gz				\
+	&& mkdir -p /var/www/html/											\
+	&& tar xvf wordpress-5.9.2.tar.gz --directory /var/www/html/		\
+	&& rm wordpress-5.9.2.tar.gz
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar	\
 	&& chmod +x wp-cli.phar																\
     && mv wp-cli.phar /usr/local/bin/wp

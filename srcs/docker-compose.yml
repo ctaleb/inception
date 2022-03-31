@@ -2,7 +2,7 @@ services:
   nginx:
     depends_on:
       - wordpress
-    # restart: always
+    restart: always
     image: nginx
     container_name: nginx
     init: true
@@ -15,7 +15,7 @@ services:
       - wp_volume:/var/www/html/
   mariadb:
     image: mariadb
-    # restart: always
+    restart: always
     container_name: mariadb
     init: true
     build:
@@ -24,6 +24,8 @@ services:
         - DB_NAME=${DB_NAME}
         - DB_USER=${DB_USER}
         - DB_PASS=${DB_PASS}
+        - DB_RACINE=${DB_RACINE}
+        - DB_RPASS=${DB_RPASS}
     networks:
       - 42network
     volumes:
@@ -31,7 +33,7 @@ services:
   wordpress:
     depends_on:
       - mariadb
-    # restart: always
+    restart: always
     image: wordpress
     container_name: wordpress
     init: true

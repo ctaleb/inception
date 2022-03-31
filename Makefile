@@ -1,4 +1,4 @@
-VM_PATH	=	/home/ctaleb/data/inception/
+VM_PATH	=	/home/ctaleb/data/
 LC_PATH	=	/Users/ctaleb/cursus42/inception/data/
 
 all:
