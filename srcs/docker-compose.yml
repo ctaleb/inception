@@ -45,14 +45,6 @@ services:
         - DB_PASS=${DB_PASS}
         - DB_HOST=${DB_HOST}
     environment:
-      # - WP_AUTH_KEY=${WP_AUTH_KEY}
-      # - WP_SECURE_AUTH_KEY=${WP_SECURE_AUTH_KEY}
-      # - WP_LOGGED_IN_KEY=${WP_LOGGED_IN_KEY}
-      # - WP_NONCE_KEY=${WP_NONCE_KEY}
-      # - WP_AUTH_SALT=${WP_AUTH_SALT}
-      # - WP_SECURE_AUTH_SALT=${WP_SECURE_AUTH_SALT}
-      # - WP_LOGGED_IN_SALT=${WP_LOGGED_IN_SALT}
-      # - WP_NONCE_SALT=${WP_NONCE_SALT}
       - WP_ADMIN=${WP_ADMIN}
       - WP_APASS=${WP_APASS}
       - WP_AMAIL=${WP_AMAIL}
@@ -75,7 +67,7 @@ volumes:
     driver: local
     driver_opts:
       device: ${BUILD_PATH}db
-      o: bind       #bind adress -> localhost
+      o: bind
       type: none
   wp_volume:
     name: wp_volume
