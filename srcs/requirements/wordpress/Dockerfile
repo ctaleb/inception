@@ -19,8 +19,7 @@ RUN apt-get install -y	\
 	# php-hash			\
 	# php-imagick		\
 	# php-openssl		\
-	# php-pcre			\
-	# php-zip
+	# php-pcre
 COPY /conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN service php7.3-fpm start											\
 	&& curl -O https://wordpress.org/wordpress-5.9.2.tar.gz				\
