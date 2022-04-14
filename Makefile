@@ -1,16 +1,13 @@
 VM_PATH	=	/home/ctaleb/data/
-LC_PATH	=	/Users/ctaleb/cursus42/inception/data/
-
-PATH	=	$(VM_PATH)
 
 all:
-	mkdir -p $(PATH)db/
-	mkdir -p $(PATH)wp/
+	mkdir -p $(VM_PATH)db
+	mkdir -p $(VM_PATH)wp
 	docker-compose -f srcs/docker-compose.yml up -d
 
 build:
-	mkdir -p $(PATH)db
-	mkdir -p $(PATH)wp
+	mkdir -p $(VM_PATH)db
+	mkdir -p $(VM_PATH)wp
 	docker-compose -f srcs/docker-compose.yml up -d --build
 
 stop:
@@ -21,11 +18,11 @@ clean:
 
 fclean:
 	docker-compose -f srcs/docker-compose.yml down --rmi all -v
-	rm -rf $(PATH)
+	rm -rf $(VM_PATH)
 
 free:
 	docker-compose -f srcs/docker-compose.yml down --rmi all -v
-	rm -rf $(PATH)
+	rm -rf $(VM_PATH)
 	docker system prune -a
 
 re: stop build
