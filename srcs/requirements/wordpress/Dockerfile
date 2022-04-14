@@ -18,7 +18,6 @@ RUN apt-get install -y	\
 	# php-fileinfo		\
 	# php-hash			\
 	# php-imagick		\
-	# php-mbstring		\
 	# php-openssl		\
 	# php-pcre			\
 	# php-zip
